@@ -1,4 +1,4 @@
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwjGtrLVFNQ1jNcRC0IRDR6yydocarlA-cI0HLJ1VU16PPVZ7P2S36YBhTh_t0irtNv/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxw-lEsRNcyJI31cVRw4N-2QkLYGtFOBTHI0eBCqIR_NWKfyo4TWQe7NADFG2aTKpgJ/exec";
 
 async function login(){
   const email = document.getElementById("email").value;
