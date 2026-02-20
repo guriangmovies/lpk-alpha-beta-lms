@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Kerjakan Ujian - LPK Alpha Beta</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body{
+      font-family: Arial;
+      background:#f4f6f9;
+      margin:0;
+      padding:20px;
+    }
+
+    .header{
+      background:#1E88E5;
+      color:white;
+      padding:15px;
+      border-radius:8px;
+      margin-bottom:20px;
+    }
+
+    .card{
+      background:white;
+      padding:20px;
+      border-radius:10px;
+      margin-bottom:15px;
+      box-shadow:0 3px 8px rgba(0,0,0,0.08);
+    }
+
+    button{
+      background:#1E88E5;
+      border:none;
+      color:white;
+      padding:10px 16px;
+      border-radius:6px;
+      cursor:pointer;
+      margin-top:10px;
+    }
+
+    #timer{
+      font-size:18px;
+      font-weight:bold;
+      color:#e53935;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h2>Ujian Akhir</h2>
+  <p id="info"></p>
+  <div>Waktu tersisa: <span id="timer">10:00</span></div>
+</div>
+
+<form id="quizForm"></form>
+
+<button onclick="submitUjian()">Kumpulkan Jawaban</button>
+
+<script>
+
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyjwekeycSiY5_PWgDvjPVmDza7TTlhy8cHh29QHdUAP8GVsgsysTLJoMM3dzdKHieW/exec";
+
+const soalData = {
+
+  "Office":[
+    {
+      q:"Fungsi utama Microsoft Excel adalah?",
+      o:["Mengedit video","Mengolah angka","Desain grafis","Browsing"],
+      a:1
+    },
+    {
+      q:"Shortcut copy di Word?",
+      o:["Ctrl+V","Ctrl+C","Ctrl+X","Ctrl+P"],
+      a:1
+    }
+  ],
+
+  "Desain":[
+    {
+      q:"Software desain vektor adalah?",
+      o:["Photoshop","CorelDRAW","Excel","Word"],
+      a:1
+    },
+    {
+      q:"Resolusi untuk cetak minimal?",
+      o:["72 dpi","150 dpi","300 dpi","50 dpi"],
+      a:2
+    }
+  ],
+
+  "Programming":[
+    {
+      q:"HTML digunakan untuk?",
+      o:["Styling","Struktur web","Database","Server"],
+      a:1
+    },
+    {
+      q:"Bahasa untuk interaktif web?",
+      o:["HTML","CSS","JavaScript","Excel"],
+      a:2
+    }
+  ]
+
+};
+
+let waktu = 600; // 10 menit (600 detik)
+let timerInterval;
+
+function startTimer(){
+  timerInterval = setInterval(()=>{
+    waktu--;
+    let menit = Math.floor(waktu/60);
+    let detik = waktu%60;
+
+    document.getElementById("timer").innerText =
+      `${menit}:${detik<10?"0":""}${detik}`;
+
+    if(waktu<=0){
+      clearInterval(timerInterval);
+      alert("Waktu habis! Jawaban dikumpulkan otomatis.");
+      submitUjian();
+    }
+  },1000);
+}
+
+function loadSoal(){
+
+  const nama = localStorage.getItem("nama");
+  const kelas = localStorage.getItem("kelas");
+
+  if(!nama){
+    alert("Silakan login ulang");
+    window.location.href="index.html";
+    return;
+  }
+
+  document.getElementById("info").innerText =
+    "Peserta: "+nama+" | Kelas: "+kelas;
+
+  const soal = soalData[kelas] || [];
+  const form = document.getElementById("quizForm");
+
+  soal.forEach((s,i)=>{
+    form.innerHTML += `
+      <div class="card">
+        <h3>${i+1}. ${s.q}</h3>
+        ${s.o.map((opt,idx)=>
+          `<label>
+            <input type="radio" name="q${i}" value="${idx}">
+            ${opt}
+          </label><br>`
+        ).join("")}
+      </div>
+    `;
+  });
+
+  startTimer();
+}
+
+async function submitUjian(){
+
+  clearInterval(timerInterval);
+
+  const kelas = localStorage.getItem("kelas");
+  const email = localStorage.getItem("email");
+  const soal = soalData[kelas] || [];
+
+  let benar = 0;
+
+  soal.forEach((s,i)=>{
+    const jawaban = document.querySelector(`input[name="q${i}"]:checked`);
+    if(jawaban && Number(jawaban.value) === s.a){
+      benar++;
+    }
+  });
+
+  const nilai = Math.round((benar/soal.length)*100);
+
+  alert("Nilai Anda: "+nilai);
+
+  // kirim nilai ke server
+  await fetch(
+    WEB_APP_URL + `?action=simpanNilai&email=${email}&nilai=${nilai}`
+  );
+
+  window.location.href="dashboard.html";
+}
+
+loadSoal();
+
+</script>
+
+</body>
+</html>
