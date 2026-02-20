@@ -1,4 +1,4 @@
-const WEB_APP_URL = "PASTE_WEB_APP_URL_DI_SINI";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbwjGtrLVFNQ1jNcRC0IRDR6yydocarlA-cI0HLJ1VU16PPVZ7P2S36YBhTh_t0irtNv/exec";
 
 async function login(){
   const email = document.getElementById("email").value;
