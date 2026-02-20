@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Materi - LPK Alpha Beta</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body{
+      font-family: Arial;
+      background:#f4f6f9;
+      margin:0;
+      padding:20px;
+    }
+
+    .header{
+      background:#1E88E5;
+      color:white;
+      padding:15px;
+      border-radius:8px;
+      margin-bottom:20px;
+    }
+
+    .card{
+      background:white;
+      padding:20px;
+      border-radius:10px;
+      margin-bottom:15px;
+      box-shadow:0 3px 8px rgba(0,0,0,0.08);
+    }
+
+    button{
+      background:#1E88E5;
+      border:none;
+      color:white;
+      padding:8px 14px;
+      border-radius:6px;
+      cursor:pointer;
+    }
+
+    button:hover{
+      opacity:0.9;
+    }
+
+    .logout{
+      float:right;
+      background:#e53935;
+    }
+  </style>
+</head>
+<body>
+
+<div class="header">
+  <h2>Materi Pembelajaran</h2>
+  <p id="info"></p>
+  <button class="logout" onclick="logout()">Logout</button>
+</div>
+
+<div id="materiList"></div>
+
+<script>
+
+const materiData = {
+  "Office":[
+    {judul:"Microsoft Word Dasar", link:"https://www.youtube.com/watch?v=example1"},
+    {judul:"Microsoft Excel Dasar", link:"https://www.youtube.com/watch?v=example2"},
+    {judul:"Microsoft PowerPoint", link:"https://www.youtube.com/watch?v=example3"}
+  ],
+
+  "Desain":[
+    {judul:"Canva Profesional", link:"https://www.youtube.com/watch?v=example4"},
+    {judul:"Photoshop Dasar", link:"https://www.youtube.com/watch?v=example5"},
+    {judul:"CorelDRAW Fundamental", link:"https://www.youtube.com/watch?v=example6"}
+  ],
+
+  "Programming":[
+    {judul:"HTML Dasar", link:"https://www.youtube.com/watch?v=example7"},
+    {judul:"JavaScript Dasar", link:"https://www.youtube.com/watch?v=example8"},
+    {judul:"Membuat Website Lengkap", link:"https://www.youtube.com/watch?v=example9"}
+  ]
+};
+
+
+function loadMateri(){
+
+  const nama = localStorage.getItem("nama");
+  const kelas = localStorage.getItem("kelas");
+
+  if(!nama){
+    alert("Silakan login ulang");
+    window.location.href="index.html";
+    return;
+  }
+
+  document.getElementById("info").innerText =
+    "Peserta: "+nama+" | Kelas: "+kelas;
+
+  const list = materiData[kelas] || [];
+  const container = document.getElementById("materiList");
+
+  container.innerHTML="";
+
+  list.forEach(m=>{
+    container.innerHTML += `
+      <div class="card">
+        <h3>${m.judul}</h3>
+        <button onclick="window.open('${m.link}','_blank')">
+          Buka Materi
+        </button>
+      </div>
+    `;
+  });
+
+  if(list.length===0){
+    container.innerHTML="<p>Belum ada materi tersedia</p>";
+  }
+}
+
+
+function logout(){
+  localStorage.clear();
+  window.location.href="index.html";
+}
+
+loadMateri();
+
+</script>
+
+</body>
+</html>
