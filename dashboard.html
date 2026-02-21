@@ -1,27 +1,52 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dashboard - LPK Alpha Beta</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>Dashboard Peserta</h2>
+<div class="container">
+  <div class="card" style="text-align: center; margin-top: 20px;">
+    <h2>Selamat Datang di Dashboard</h2>
+    <p>Pilih menu pembelajaran Anda di bawah ini.</p>
+  </div>
 
-<div id="userData"></div>
+  <div class="dashboard-grid">
+    <div class="card dashboard-card">
+      <h3>📚 Materi Belajar</h3>
+      <p style="margin-bottom: 15px; font-size: 14px;">Akses modul pembelajaran terbaru Anda.</p>
+      <a href="#" target="_blank" class="btn">Buka Materi</a>
+    </div>
 
-<h3>Materi</h3>
-  
-<a href="materi.html" target="_blank">Buka Materi</a>
+    <div class="card dashboard-card">
+      <h3>📁 Upload Tugas</h3>
+      <div class="form-group">
+        <input type="text" id="linkfile" placeholder="Link Google Drive / Dokumen">
+      </div>
+      <button onclick="uploadTugas()">Kirim Tugas</button>
+    </div>
 
-<h3>Latihan</h3>
-<a href="https://link-google-form-latihan" target="_blank">Kerjakan Latihan</a>
+    <div class="card dashboard-card">
+      <h3>📝 Ujian Online</h3>
+      <p style="margin-bottom: 15px; font-size: 14px;">Pastikan koneksi stabil sebelum memulai.</p>
+      <a href="ujian.html" class="btn btn-secondary" style="border-color: #e74c3c; color: #e74c3c;">Kerjakan Ujian</a>
+    </div>
 
-<h3>Ujian Akhir</h3>
-<a href="https://link-google-form-ujian" target="_blank">Kerjakan Ujian</a>
+    <div class="card dashboard-card">
+      <h3>🎓 Sertifikat</h3>
+      <p style="margin-bottom: 15px; font-size: 14px;">Unduh sertifikat jika telah lulus uji.</p>
+      <button onclick="cekSertifikat()">Download Sertifikat</button>
+    </div>
+  </div>
 
-<h3>Sertifikat</h3>
-<button onclick="cekSertifikat()">Cek Sertifikat</button>
+  <div class="card" style="margin-top: 20px;">
+    <h3>🏆 Leaderboard</h3>
+    <div id="leaderboard">Memuat data...</div>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>
