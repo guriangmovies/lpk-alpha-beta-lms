@@ -8,42 +8,50 @@
 </head>
 <body>
 
+<nav class="navbar">
+  <div>
+    <h3>LPK Alpha Beta</h3>
+    <small id="user-email-display" style="color:var(--text-muted); font-size:12px;">Memuat...</small>
+  </div>
+  <button onclick="logout()" class="btn btn-logout">Logout</button>
+</nav>
+
 <div class="container">
-  <div class="card" style="text-align: center; margin-top: 20px;">
-    <h2>Selamat Datang di Dashboard</h2>
-    <p>Pilih menu pembelajaran Anda di bawah ini.</p>
+  <div class="card" style="text-align: center;">
+    <h2>Dashboard Siswa</h2>
+    <p>Selamat datang di portal pembelajaran Anda.</p>
   </div>
 
   <div class="dashboard-grid">
     <div class="card dashboard-card">
       <h3>📚 Materi Belajar</h3>
-      <p style="margin-bottom: 15px; font-size: 14px;">Akses modul pembelajaran terbaru Anda.</p>
+      <p style="margin-bottom: 15px; font-size: 14px;">Akses modul terbaru.</p>
       <a href="#" target="_blank" class="btn">Buka Materi</a>
     </div>
 
     <div class="card dashboard-card">
       <h3>📁 Upload Tugas</h3>
       <div class="form-group">
-        <input type="text" id="linkfile" placeholder="Link Google Drive / Dokumen">
+        <input type="text" id="linkfile" placeholder="Link Google Drive Anda">
       </div>
       <button onclick="uploadTugas()">Kirim Tugas</button>
     </div>
 
     <div class="card dashboard-card">
       <h3>📝 Ujian Online</h3>
-      <p style="margin-bottom: 15px; font-size: 14px;">Pastikan koneksi stabil sebelum memulai.</p>
-      <a href="ujian.html" class="btn btn-secondary" style="border-color: #e74c3c; color: #e74c3c;">Kerjakan Ujian</a>
+      <p style="margin-bottom: 15px; font-size: 14px;">Kerjakan evaluasi Anda.</p>
+      <a href="ujian.html" class="btn btn-secondary" style="border-color: #e74c3c; color: #e74c3c;">Buka Ujian</a>
     </div>
 
     <div class="card dashboard-card">
       <h3>🎓 Sertifikat</h3>
-      <p style="margin-bottom: 15px; font-size: 14px;">Unduh sertifikat jika telah lulus uji.</p>
-      <button onclick="cekSertifikat()">Download Sertifikat</button>
+      <p style="margin-bottom: 15px; font-size: 14px;">Cek kelulusan Anda.</p>
+      <button onclick="cekSertifikat()">Cek & Download</button>
     </div>
   </div>
 
   <div class="card" style="margin-top: 20px;">
-    <h3>🏆 Leaderboard</h3>
+    <h3>🏆 Leaderboard Nilai</h3>
     <div id="leaderboard">Memuat data...</div>
   </div>
 </div>
