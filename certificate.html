@@ -1,16 +1,28 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Validasi Sertifikat</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<h2>Validasi Sertifikat LPK Alpha Beta</h2>
-<input type="text" id="kode" placeholder="Masukkan Nomor Sertifikat">
-<button onclick="validasi()">Validasi</button>
+<div class="container">
+  <div class="card login-box" style="margin-top: 50px;">
+    <h2>Validasi Sertifikat</h2>
+    <p style="margin-bottom: 20px; font-size: 14px;">Masukkan nomor seri sertifikat untuk memeriksa keasliannya.</p>
+    
+    <div class="form-group">
+      <input type="text" id="kode" placeholder="Contoh: LPK-AB-2023-001">
+    </div>
+    <div class="form-group">
+      <button onclick="validasi()">Cek Validasi</button>
+    </div>
 
-<div id="hasil"></div>
+    <div id="hasil"></div>
+  </div>
+</div>
 
 <script src="script.js"></script>
 </body>
