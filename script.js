@@ -1,4 +1,4 @@
-const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyjwekeycSiY5_PWgDvjPVmDza7TTlhy8cHh29QHdUAP8GVsgsysTLJoMM3dzdKHieW/exec";
+const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbw2JEo7wXPocpUf2bYFzcPRI5FZPKafnqhNeV5Uf0HpDsWpUczbhllEW54oDG26Xa-S/exec";
 
 // ... (Biarkan fungsi kirimOTP, verifikasiOTP, uploadTugas, cekSertifikat, validasi tetap sama seperti sebelumnya) ...
 
