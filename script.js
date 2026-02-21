@@ -1,82 +1,71 @@
 const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbyjwekeycSiY5_PWgDvjPVmDza7TTlhy8cHh29QHdUAP8GVsgsysTLJoMM3dzdKHieW/exec";
 
-// ================= LOGIN =================
-async function login(){
-  const email = document.getElementById("email").value.trim();
-  const password = document.getElementById("password").value.trim();
+// ... (Biarkan fungsi kirimOTP, verifikasiOTP, uploadTugas, cekSertifikat, validasi tetap sama seperti sebelumnya) ...
 
-  if(!email || !password){
-    document.getElementById("msg").innerText = "Email & Password wajib diisi";
-    return;
+// ==========================================
+// FUNGSI BARU: Mengubah JSON menjadi Tabel
+// ==========================================
+function createTableFromJSON(data) {
+  // Jika data kosong atau bukan array
+  if (!data || data.length === 0) {
+    return "<p style='text-align:center; padding:20px;'>Tidak ada data yang ditemukan.</p>";
   }
 
-  try{
-    const res = await fetch(
-      WEB_APP_URL + `?action=login&email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`
-    );
+  // Bungkus dengan div agar responsif di HP
+  let html = '<div class="table-responsive"><table class="data-table"><thead><tr>';
+  
+  // Ambil judul kolom (header) dari object pertama
+  const headers = Object.keys(data[0]);
+  headers.forEach(header => {
+    // Ubah huruf pertama jadi kapital agar rapi
+    const cleanHeader = header.charAt(0).toUpperCase() + header.slice(1);
+    html += `<th>${cleanHeader}</th>`;
+  });
+  html += '</tr></thead><tbody>';
 
+  // Isi baris data
+  data.forEach(row => {
+    html += '<tr>';
+    headers.forEach(header => {
+      html += `<td>${row[header] || '-'}</td>`;
+    });
+    html += '</tr>';
+  });
+
+  html += '</tbody></table></div>';
+  return html;
+}
+
+// ==========================================
+// PERBARUAN: Load Users & Leaderboard
+// ==========================================
+async function loadUsers(){
+  const usersDiv = document.getElementById("users");
+  usersDiv.innerHTML = "<p>Memuat data siswa...</p>"; // Loading state
+  
+  try {
+    const res = await fetch(WEB_APP_URL+"?action=users");
     const data = await res.json();
-
-    if(data.status === "success"){
-      localStorage.setItem("email", email);
-      localStorage.setItem("nama", data.nama);
-      localStorage.setItem("kelas", data.kelas);
-      window.location.href = "dashboard.html";
-    }else{
-      document.getElementById("msg").innerText = "Login gagal";
-    }
-
-  }catch(err){
-    document.getElementById("msg").innerText = "Server error";
+    usersDiv.innerHTML = createTableFromJSON(data);
+  } catch (error) {
+    usersDiv.innerHTML = "<p style='color:red;'>Gagal memuat data. Periksa koneksi atau URL Apps Script.</p>";
   }
 }
 
-
-// ================= CEK SERTIFIKAT =================
-async function cekSertifikat(){
-  const email = localStorage.getItem("email");
-  if(!email){
-    alert("Silakan login ulang");
-    return;
-  }
-
-  const res = await fetch(
-    WEB_APP_URL + `?action=certificate&email=${encodeURIComponent(email)}`
-  );
-
-  const data = await res.json();
-
-  if(data.link){
-    window.open(data.link, "_blank");
-  }else{
-    alert("Belum lulus atau sertifikat belum tersedia");
+async function loadLeaderboard(){
+  const leaderboardDiv = document.getElementById("leaderboard");
+  leaderboardDiv.innerHTML = "<p>Memuat leaderboard...</p>"; // Loading state
+  
+  try {
+    const res = await fetch(WEB_APP_URL+"?action=leaderboard");
+    const data = await res.json();
+    leaderboardDiv.innerHTML = createTableFromJSON(data);
+  } catch (error) {
+    leaderboardDiv.innerHTML = "<p style='color:red;'>Gagal memuat data. Periksa koneksi atau URL Apps Script.</p>";
   }
 }
 
-
-// ================= VALIDASI =================
-async function validasi(){
-  const kode = document.getElementById("kode").value.trim();
-
-  if(!kode){
-    alert("Masukkan kode sertifikat");
-    return;
-  }
-
-  const res = await fetch(
-    WEB_APP_URL + `?action=validate&kode=${encodeURIComponent(kode)}`
-  );
-
-  const data = await res.json();
-
-  if(data.status === "valid"){
-    document.getElementById("hasil").innerHTML =
-      `<h3>Sertifikat Valid</h3>
-       <p>Nama: ${data.nama}<br>
-       Kelas: ${data.kelas}<br>
-       Nilai: ${data.nilai}</p>`;
-  }else{
-    document.getElementById("hasil").innerHTML =
-      "<h3 style='color:red'>Sertifikat Tidak Valid</h3>";
-  }
+// Panggil leaderboard saat halaman dimuat
+if(document.getElementById("leaderboard")) {
+  loadLeaderboard();
 }
