@@ -1,17 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="id">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Login LMS - LPK Alpha Beta</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div class="login-box">
-  <h2>Login LMS</h2>
-  <input type="email" id="email" placeholder="Email">
-  <input type="password" id="password" placeholder="Password">
-  <button onclick="login()">Login</button>
-  <p id="msg"></p>
+<div class="card login-box">
+  <h2>Login LMS (OTP)</h2>
+  <p style="margin-bottom: 20px; font-size: 14px;">Masukkan email terdaftar Anda untuk menerima kode OTP.</p>
+  
+  <div class="form-group">
+    <input type="email" id="email" placeholder="Alamat Email Anda">
+  </div>
+  <div class="form-group">
+    <button onclick="kirimOTP()">Kirim Kode OTP</button>
+  </div>
+
+  <hr style="border: 0; border-top: 1px solid var(--border); margin: 20px 0;">
+
+  <div class="form-group">
+    <input type="text" id="kode" placeholder="Masukkan 6 Digit OTP">
+  </div>
+  <div class="form-group">
+    <button onclick="verifikasiOTP()" class="btn-secondary">Verifikasi & Login</button>
+  </div>
+
+  <p id="msg" class="msg-text"></p>
 </div>
 
 <script src="script.js"></script>
