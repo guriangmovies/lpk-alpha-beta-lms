@@ -173,3 +173,47 @@ iframe {
   overflow-x: auto;
   font-size: 14px;
 }
+
+/* Table Styles */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+  font-size: 14px;
+  text-align: left;
+}
+
+.data-table th, 
+.data-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid var(--border);
+}
+
+.data-table th {
+  background-color: var(--primary);
+  color: white;
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 12px;
+  letter-spacing: 0.5px;
+}
+
+.data-table tr:hover {
+  background-color: #f1f5f9;
+  transition: background-color 0.2s ease;
+}
+
+.data-table th:first-child {
+  border-top-left-radius: var(--radius);
+}
+
+.data-table th:last-child {
+  border-top-right-radius: var(--radius);
+}
+
+/* Membuat tabel bisa di-scroll menyamping di HP */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
