@@ -3,57 +3,108 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dashboard - LPK Alpha Beta</title>
+  <title>Dashboard Belajar - LPK Alpha Beta</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<nav class="navbar">
-  <div>
-    <h3>LPK Alpha Beta</h3>
-    <small id="user-email-display" style="color:var(--text-muted); font-size:12px;">Memuat...</small>
-  </div>
-  <button onclick="logout()" class="btn btn-logout">Logout</button>
-</nav>
-
-<div class="container">
-  <div class="card" style="text-align: center;">
-    <h2>Dashboard Siswa</h2>
-    <p>Selamat datang di portal pembelajaran Anda.</p>
-  </div>
-
-  <div class="dashboard-grid">
-    <div class="card dashboard-card">
-      <h3>📚 Materi Belajar</h3>
-      <p style="margin-bottom: 15px; font-size: 14px;">Akses modul terbaru.</p>
-      <a href="#" target="_blank" class="btn">Buka Materi</a>
+<div class="app-container">
+  
+  <aside class="sidebar">
+    <div class="sidebar-logo">🎓 LPK Alpha Beta</div>
+    <ul class="nav-menu">
+      <li><a href="#" class="active">📊 Dashboard</a></li>
+      <li><a href="#materi">📚 Modul Materi</a></li>
+      <li><a href="#tugas">📁 Upload Tugas</a></li>
+      <li><a href="ujian.html">📝 Ujian Online</a></li>
+      <li><a href="#sertifikat">🏆 Sertifikat</a></li>
+    </ul>
+    <div style="margin-top: auto;">
+      <button onclick="logout()" style="width: 100%; background: var(--danger);">🚪 Keluar</button>
     </div>
+  </aside>
 
-    <div class="card dashboard-card">
-      <h3>📁 Upload Tugas</h3>
-      <div class="form-group">
-        <input type="text" id="linkfile" placeholder="Link Google Drive Anda">
+  <main class="main-content">
+    
+    <header class="topbar">
+      <div>
+        <h2>Halo, Pelajar! 👋</h2>
+        <p style="color: var(--text-muted); font-size: 14px;">Selamat datang kembali di ruang belajarmu.</p>
       </div>
-      <button onclick="uploadTugas()">Kirim Tugas</button>
+      <div class="user-profile">
+        <span id="user-email-display" style="font-weight: 600;">Memuat...</span>
+      </div>
+    </header>
+
+    <div class="dashboard-grid">
+      <div class="card stat-card">
+        <div class="stat-icon blue">📚</div>
+        <div class="stat-info">
+          <h4>Materi Tersedia</h4>
+          <p>5 Modul</p>
+        </div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-icon orange">⏳</div>
+        <div class="stat-info">
+          <h4>Tugas Menunggu</h4>
+          <p>1 Tugas</p>
+        </div>
+      </div>
+      <div class="card stat-card">
+        <div class="stat-icon green">🎯</div>
+        <div class="stat-info">
+          <h4>Status Kelulusan</h4>
+          <p>Belum Ujian</p>
+        </div>
+      </div>
     </div>
 
-    <div class="card dashboard-card">
-      <h3>📝 Ujian Online</h3>
-      <p style="margin-bottom: 15px; font-size: 14px;">Kerjakan evaluasi Anda.</p>
-      <a href="ujian.html" class="btn btn-secondary" style="border-color: #e74c3c; color: #e74c3c;">Buka Ujian</a>
+    <div class="dashboard-grid" style="grid-template-columns: 2fr 1fr;">
+      
+      <div class="card" id="materi">
+        <h3 style="margin-bottom: 20px;">📚 Modul Pembelajaran Terbaru</h3>
+        
+        <div style="border: 1px solid var(--border); padding: 15px; border-radius: 8px; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <h4 style="margin-bottom: 5px;">Modul 1: Pengantar Industri</h4>
+            <span class="badge lulus">PDF</span>
+          </div>
+          <a href="#" target="_blank" class="btn btn-outline">Buka Materi</a>
+        </div>
+
+        <div style="border: 1px solid var(--border); padding: 15px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+          <div>
+            <h4 style="margin-bottom: 5px;">Modul 2: Praktik Dasar</h4>
+            <span class="badge menunggu">Video</span>
+          </div>
+          <a href="#" target="_blank" class="btn btn-outline">Tonton Video</a>
+        </div>
+      </div>
+
+      <div>
+        <div class="card" id="tugas" style="margin-bottom: 20px;">
+          <h3 style="margin-bottom: 15px;">📁 Pengumpulan Tugas</h3>
+          <p style="font-size: 14px; margin-bottom: 15px; color: var(--text-muted);">Pastikan link Google Drive Anda diset ke "Siapa saja memiliki link".</p>
+          <input type="text" id="linkfile" placeholder="Paste Link Google Drive di sini...">
+          <button onclick="uploadTugas()" style="width: 100%; margin-top: 10px;">Kirim Tugas Sekarang</button>
+        </div>
+
+        <div class="card" id="sertifikat">
+          <h3 style="margin-bottom: 15px;">🏆 E-Sertifikat</h3>
+          <p style="font-size: 14px; margin-bottom: 15px; color: var(--text-muted);">Sertifikat akan terbuka otomatis jika nilai ujian Anda mencukupi.</p>
+          <button onclick="cekSertifikat()" class="btn-outline" style="width: 100%;">Cek & Unduh Sertifikat</button>
+        </div>
+      </div>
+
     </div>
 
-    <div class="card dashboard-card">
-      <h3>🎓 Sertifikat</h3>
-      <p style="margin-bottom: 15px; font-size: 14px;">Cek kelulusan Anda.</p>
-      <button onclick="cekSertifikat()">Cek & Download</button>
+    <div class="card">
+      <h3 style="margin-bottom: 20px;">🏅 Peringkat Siswa Terbaik (Top 10)</h3>
+      <div id="leaderboard">Memuat data peringkat...</div>
     </div>
-  </div>
 
-  <div class="card" style="margin-top: 20px;">
-    <h3>🏆 Leaderboard Nilai</h3>
-    <div id="leaderboard">Memuat data...</div>
-  </div>
+  </main>
 </div>
 
 <script src="script.js"></script>
